@@ -1,0 +1,32 @@
+{
+  "development": {
+    "username": "root",
+    "password": "qwer1234",
+    "database": "nodejs",
+    "host": "127.0.0.1",
+    "port": 3306,
+    "dialect": "mariadb",
+    "pool": { "max": 5, "min":0, "idle": 1000},
+    "operatorsAliase": false
+  },
+  "test": {
+    "username": "root",
+    "password": "qwer1234",
+    "database": "nodejs",
+    "host": "127.0.0.1",
+    "port": 3306,
+    "dialect": "mariadb",
+    "pool": { "max": 5, "min":0, "idle": 1000},
+    "operatorsAliase": false
+  },
+  "production": {
+    "username": "root",
+    "password": "qwer1234",
+    "database": "nodejs",
+    "host": "127.0.0.1",
+    "port": 3306,
+    "dialect": "mariadb",
+    "pool": { "max": 5, "min":0, "idle": 1000},
+    "operatorsAliase": false
+  }
+}
