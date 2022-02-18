@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const models = require('./models/index.js');
+const session = require('express-session');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/user');
@@ -22,6 +23,22 @@ models.sequelize.sync().then(()=> {
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+//세션 설정
+app.use(session({
+  //세션 키값
+  key: 'sj',
+  //세션 비밀키
+  secret: 'secret',
+  //세션을 항상 저장할지 여부
+  resave: false,
+  //세션이 저장되기전에 uninitialized 상태로 만들어 저장
+  saveUninitialized: true,
+  //쿠키 유효시간
+  cookie: {
+    maxAge: 24000 * 60 * 60 // 24시간
+  }
+}));
 
 app.use(logger('dev'));
 app.use(express.json());
