@@ -24,7 +24,7 @@ router.post('/signup', async function(req,res,next){
     let body = req.body;
     
     let inputPassword = body.password;
-    let hashPassword = crypto.createHash('sha512').update(inputPassword).digest("hex");
+    let hashPassword = crypto.createHash('sha512').update(inputPassword).digest("base64");
 
     let result = models.user.create({
         name: body.username,
@@ -38,9 +38,11 @@ router.post('/signup', async function(req,res,next){
 router.get('/login', function(req,res,next){
     let session = req.session;
     
-    res.render('user/login', {
+    res.render('user/logOk', {
         session : session
     });
+
+
 });
 
 //로그인 POST
@@ -55,7 +57,7 @@ router.post('/login',async function(req,res,next){
 
     let dbPassword =result.dataValues.password;
     let inputPassword = body.password;
-    let hashPassword = crypto.createHash("sha512").update(inputPassword).digest("hex");
+    let hashPassword = crypto.createHash("sha512").update(inputPassword).digest("base64");
 
     if(dbPassword === hashPassword){
         console.log('알맞은 비밀번호 입니다.');
@@ -68,7 +70,7 @@ router.post('/login',async function(req,res,next){
         // 세션
         req.session.userID = body.userID;
 
-        res.redirect('/');
+        res.redirect('/user/loginOk');
     }
     else{
         console.log("맞지 않은 비밀번호 입니다.");
@@ -76,17 +78,9 @@ router.post('/login',async function(req,res,next){
     }
 });
 
-// router.post('/sign_up', function(req, res, next){
-//     let body = req.body;
-//     client.query("INSERT INTO users (user_i_d, password,created_at,updated_at) VALUES (?,?,null,null);",[
-//         body.userId, body.password
-//     ], function(){
-//         res.redirect("/user/sign_up");
-//     })
-// })
 
 //로그아웃
-router.get('/logout', function(req,res,next){
+router.get('/loginOk', function(req,res,next){
     //세션 삭제
     req.session.destroy();
     res.clearCookie('sj');

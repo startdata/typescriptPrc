@@ -1,4 +1,5 @@
 'use strict';
+// 없어도 무방
 
 const { QueryInterface } = require("sequelize/types");
 const { Sequelize } = require("../models");
@@ -19,3 +20,4 @@ module.exports = {
         }
     }))
 }
+
