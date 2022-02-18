@@ -4,16 +4,21 @@ module.exports = (sequelize, DataTypes) => {
         name: {
             type: DataTypes.STRING,
             allowNull:false
-            
         },
         userID: {
             type: DataTypes.STRING,
             unique: true,
-            allowNull: false
+            allowNull: false,
+            validator:{
+                len:[2,8]
+            }
         },
         password: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            validator:{
+                len:[6,10]
+            }
         }
     });
     return user;
