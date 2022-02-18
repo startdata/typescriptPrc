@@ -38,11 +38,9 @@ router.post('/signup', async function(req,res,next){
 router.get('/login', function(req,res,next){
     let session = req.session;
     
-    res.render('user/logOk', {
+    res.render('user/loginOk', {
         session : session
     });
-
-
 });
 
 //로그인 POST
@@ -83,9 +81,11 @@ router.post('/login',async function(req,res,next){
 router.get('/loginOk', function(req,res,next){
     //세션 삭제
     req.session.destroy();
+    console.log( 'req.session.destroy();');
     res.clearCookie('sj');
+    console.log("res.clearCookie('sj')");
 
-    res.redirect('/user/login')
+    res.redirect('/')
 })
 
 module.exports = router;
