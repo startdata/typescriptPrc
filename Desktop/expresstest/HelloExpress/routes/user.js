@@ -15,7 +15,7 @@ let client = mariadb.createConnection({
   database: "nodejs"
 })
 
-//회원가입
+//회원가입 
 router.get('/signup', function(req,res, next){
     res.render("user/signup");
 });
@@ -32,6 +32,10 @@ router.post('/signup', async function(req,res,next){
         password: hashPassword
     })
     res.redirect("/user/login");
+})
+
+router.get('/index', async function(req,res,next){
+    const user = await models.user.findAll();
 })
 
 //로그인 GET
@@ -59,11 +63,11 @@ router.post('/login',async function(req,res,next){
 
     if(dbPassword === hashPassword){
         console.log('알맞은 비밀번호 입니다.');
-        // // 쿠키
-        // res.cookie('user',body.userID, {
-        //     expires: new Date(Date.now()+ 100000),
-        //     httpOnly: true
-        // })
+        // 쿠키
+        res.cookie('user',body.userID, {
+            expires: new Date(Date.now()+ 100000),
+            httpOnly: true
+        })
 
         // 세션
         req.session.userID = body.userID;
@@ -87,5 +91,30 @@ router.get('/loginOk', function(req,res,next){
 
     res.redirect('/')
 })
+
+router.delete('/delete', function(req,res,next){
+    models.user.destroy(
+        //where
+        {
+            where : { id : req.params.id}
+        }).then(()=>{
+            res.redirect('/user/signup')
+        })
+})
+
+// router.update('/update', function(req,res,next){
+//     models.user.update(
+//      {
+//         name: body.username,
+//         userID: body.userID,
+//         password: hashPassword
+//      },
+//      //where절
+//      {
+//          where : {id : req.params.id }
+//      }).then(()=>{
+//          res.redirect('/user/signup');
+// });
+
 
 module.exports = router;

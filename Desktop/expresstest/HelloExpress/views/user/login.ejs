@@ -6,12 +6,6 @@
 </head>
 <body>
 
-<% if(session.userID){ %>
-<h3>로그인 성공</h3>
-<form action="/user/logout" method="get">
-    <input type="submit" value="로그아웃">
-</form>
-<% } else{ %>
 <h3>로그인</h3>
 <form action="/user/login" method="post">
     <table>
@@ -28,7 +22,6 @@
         </tr>
     </table>
 </form>
-<% } %>
 
 </body>
 </html>
