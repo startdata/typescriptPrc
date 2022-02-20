@@ -87,7 +87,6 @@ router.post('/login', async function (req, res, next) {
     }
 });
 
-
 //로그아웃
 router.get('/loginOk', function (req, res, next) {
     //세션 삭제
@@ -99,7 +98,7 @@ router.get('/loginOk', function (req, res, next) {
     res.redirect('/')
 })
 
-router.delete('/delete', function (req, res, next) {
+router.post('/delete', function (req, res, next) {
     models.user.destroy(
         //where
         {
@@ -109,7 +108,7 @@ router.delete('/delete', function (req, res, next) {
         })
 })
 
-router.update('/update', function (req, res, next) {
+router.post('/update', function (req, res, next) {
     models.user.update(
         {
             name: body.username,
