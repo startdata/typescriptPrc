@@ -17,8 +17,8 @@ let client = mariadb.createConnection({
 
 const signupCheck = [
     body('name' , "이름을 입력해주세요").notEmpty(),
-    body('userId',"2자이상 8자이하 입력해주세요" ).isInt({min:2,max:8}),
-    body('hashPassword',"6자이상 10자이하 입력해주세요").isInt({min:6,max:10})
+    body('userId',"2자이상 8자이하 입력해주세요" ).isInt({min:2,max:8}).notEmpty(),
+    body('hashPassword',"6자이상 10자이하 입력해주세요").isInt({min:6,max:10}).notEmpty()
 ]
 
 //회원가입 
