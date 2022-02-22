@@ -15,18 +15,18 @@ let client = mariadb.createConnection({
     database: "nodejs"
 })
 
-const signupCheck = [
-    body('name' , "이름을 입력해주세요").notEmpty(),
-    body('userId',"2자이상 8자이하 입력해주세요" ).isInt({min:2,max:8}).notEmpty(),
-    body('hashPassword',"6자이상 10자이하 입력해주세요").isInt({min:6,max:10}).notEmpty()
-]
+// const signupCheck = [
+//     body('name' , "이름을 입력해주세요").notEmpty(),
+//     body('userId',"2자이상 8자이하 입력해주세요" ).isInt({min:2,max:8}).notEmpty(),
+//     body('hashPassword',"6자이상 10자이하 입력해주세요").isInt({min:6,max:10}).notEmpty()
+// ];
 
 //회원가입 
 router.get('/signup', function (req, res, next) {
     res.render("user/signup");
 });
 
-router.post('/signup',signupCheck, async function (req, res, next) {
+router.post('/signup', async function (req, res, next) {
     let body = req.body;
 
     let inputPassword = body.password;
@@ -37,11 +37,12 @@ router.post('/signup',signupCheck, async function (req, res, next) {
         userID: body.userID,
         password: hashPassword
     })
+    
     res.redirect("/user/login");
 })
 
 //전체 조회
-router.get('/index', async function (req, res, next) {
+router.get('/', async function (req, res, next) {
     const user = await models.user.findAll();
 })
 
@@ -94,8 +95,8 @@ router.get('/loginOk', function (req, res, next) {
     console.log('req.session.destroy();');
     res.clearCookie('sj');
     console.log("res.clearCookie('sj')");
-
-    res.redirect('/')
+    res.redirect('/');
+    return res.sendStatus(200);
 })
 
 router.post('/delete', function (req, res, next) {

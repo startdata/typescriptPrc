@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const models = require('./models/index.js');
+const session = require('express-session')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/user');
@@ -12,6 +13,17 @@ let testRouter = require('./routes/test');
 const { sequelize } = require('./models');
 
 var app = express();
+
+//session
+app.use(session({
+  key:'sj',
+  secret:'secret',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 24000 * 60* 60 
+  }
+}));
 
 //sequelize
 models.sequelize.sync().then(()=> {
